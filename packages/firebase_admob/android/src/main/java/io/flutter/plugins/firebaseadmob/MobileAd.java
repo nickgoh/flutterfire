@@ -142,13 +142,31 @@ abstract class MobileAd extends AdListener {
       status = Status.LOADING;
 
       adView = new AdView(activity);
-      adView.setAdSize(adSize);
+      AdSize adSizes = getAdSize();
+    // Step 4 - Set the adaptive ad size on the ad view.
+      adView.setAdSize(adSizes);
+      //adView.setAdSize(adSize);
       adView.setAdUnitId(adUnitId);
       adView.setAdListener(this);
 
       AdRequestBuilderFactory factory = new AdRequestBuilderFactory(targetingInfo);
       adView.loadAd(factory.createAdRequestBuilder().build());
     }
+    
+  private AdSize getAdSize() {
+    // Step 2 - Determine the screen width (less decorations) to use for the ad width.
+    Display display = getWindowManager().getDefaultDisplay();
+    DisplayMetrics outMetrics = new DisplayMetrics();
+    display.getMetrics(outMetrics);
+
+    float widthPixels = outMetrics.widthPixels;
+    float density = outMetrics.density;
+
+    int adWidth = (int) (widthPixels / density);
+
+    // Step 3 - Get adaptive ad size and return for setting on the ad view.
+    return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(this, adWidth);
+  }
 
     @Override
     void show() {
