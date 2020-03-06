@@ -15,6 +15,8 @@ import com.google.android.gms.ads.*;
 import io.flutter.plugin.common.MethodChannel;
 import java.util.HashMap;
 import java.util.Map;
+import android.util.DisplayMetrics;
+import android.view.Display;
 
 abstract class MobileAd extends AdListener {
   private static final String TAG = "flutter";
@@ -155,7 +157,7 @@ abstract class MobileAd extends AdListener {
     
   private AdSize getAdSize() {
     // Step 2 - Determine the screen width (less decorations) to use for the ad width.
-    Display display = getWindowManager().getDefaultDisplay();
+    Display display = this.activity.getWindowManager().getDefaultDisplay();
     DisplayMetrics outMetrics = new DisplayMetrics();
     display.getMetrics(outMetrics);
 
