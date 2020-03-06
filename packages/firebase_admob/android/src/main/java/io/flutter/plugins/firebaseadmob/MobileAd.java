@@ -167,7 +167,7 @@ abstract class MobileAd extends AdListener {
     int adWidth = (int) (widthPixels / density);
 
     // Step 3 - Get adaptive ad size and return for setting on the ad view.
-    return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(this, adWidth);
+    return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(activity, adWidth);
   }
 
     @Override
